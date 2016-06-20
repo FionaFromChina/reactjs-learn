@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计时器</title>
+</head>
+<body>
+    <h1>计时器</h1>
+    <hr/>
+    <div id="container"></div>
+
+    <script src="../../build/react.js"></script>
+    <script src="../../build/react-dom.js"></script>
+    <script>
+        var BasicApplication = React.createClass({
+            render:function(){
+                var second = 10- Math.round(this.props.millSeconds/1000);
+                var message = "还有"+second+"秒后将跳转至百度页面.";
+                return React.DOM.p(null,message);
+            }
+        });
+
+        var BasicApplicationFactory = React.createFactory(BasicApplication);
+
+        var startTime = new Date().getTime();
+        var times = setInterval(function(){
+            ReactDOM.render(
+                    BasicApplicationFactory({millSeconds:new Date().getTime() - startTime}),
+                    document.getElementById("container")
+            )
+        },100);
+        setTimeout(function(){
+            clearInterval(times);
+            window.location = "https://www.baidu.com";
+        },10000);
+
+
+    </script>
+</body>
+</html>
